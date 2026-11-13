@@ -1,0 +1,12 @@
+[Unit]
+Description=Personal assistant Telegram queue worker
+After=network.target redis.service mysql.service
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/personalbot
+ExecStart=/usr/bin/php artisan queue:work redis --queue=telegram --sleep=1 --tries=3 --timeout=120
+Restart=always
+RestartSec=5
+[Install]
+WantedBy=multi-user.target
