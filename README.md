@@ -173,4 +173,8 @@ sudo journalctl -u personal-assistant-telegram-worker -f
 
 ## Delivery and retry limitations
 
-Queue retries can repeat a response or add duplicate transcript entries if Telegram delivery fails after a reply is generated. A crash between saving an update and dispatching its job can leave an update pending; inspect pending updates and failed jobs when troubleshooting. End-to-end delivery requires your own Telegram token, HTTPS endpoint, Redis, MySQL, and AI provider.
+Delivery retries reuse a saved response and do not repeat transcript inserts. Telegram may still deliver duplicate text if a request succeeds but its acknowledgement is lost, or if a multi-part response partially succeeds. A crash between saving an update and dispatching its job can leave an update pending; see the recovery command in the handover guide. End-to-end delivery requires your own Telegram token, HTTPS endpoint, Redis, MySQL, and AI provider.
+
+## Handover
+
+See [docs/HANDOVER.md](docs/HANDOVER.md) for deployment, operation, recovery, backups and troubleshooting.
